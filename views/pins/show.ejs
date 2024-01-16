@@ -1,22 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixus</title>
-</head>
-<body>
-    <h3>Listing Details:</h3>
-    <ul>
-        <li><%=pin.title%></li>
-        <li><%=pin.description%></li>
-        <li><%=pin.link%></li>
-        <li><%=pin.board%></li>
-        <li><%=pin.taggedTopics%></li>
-    </ul>
-    <a href="/pins/<%=pin._id%>/edit">Edit</a>
-    <form method="POST" action="/pins/<%=pin._id%>?_method=DELETE">
-        <button>Delete</button>
-      </form>
-</body>
+<%layout("/layouts/boilerplate")%>
+<div class="row mt-5 justify-content-center">
+  <div class="col-8 details-box">
+    <div class="row">
+      <div class="col-6">
+        <img
+          src="<%=pin.image.url%>"
+          class="img-fluid show-img"
+          alt="Listing"
+        />
+      </div>
+      <div class="col-6 ">
+        <h3 class="text-center">Listing Details:</h3>
+        <div class="card listing-card">
+          <div class="card-body detail">
+            <ul>
+              <li><b><%=pin.title%></b></li>
+              <li><%=pin.description%></li>
+              <li><a href="<%=pin.link%>"><%=pin.link%></a></li>
+              <li><%=pin.board%></li>
+              <li><%=pin.taggedTopics%></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-3 text-center">
+          <a href="/pins/<%=pin._id%>/edit">Edit</a>
+          <form method="POST" action="/pins/<%=pin._id%>?_method=DELETE">
+            <button>Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </html>

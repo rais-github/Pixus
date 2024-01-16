@@ -1,0 +1,123 @@
+body{
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+::-webkit-scrollbar {
+    width: 8px; 
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 0, 0, 0.596); 
+    border-radius: 1rem;
+
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #f1f1f1; 
+  }
+
+/*-------------*/
+/* N A V B A R */
+/*------------ */
+.navbar{
+    height: 5rem;
+    background-color: #fff;
+}
+.nav-link{
+    color: #222222;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+
+/*-------------*/
+/* F O O T E R */
+/*------------ */
+
+footer{
+    margin-top: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+}
+.f-info{
+    display: flex;
+    height: 3.2rem;
+    background-color: #ebebeb;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+}
+
+.f-info-socials{width: 100%;font-size: 1.3rem;}
+.f-info-socials i{
+    letter-spacing: 1rem;
+}
+
+.f-info-links{width: 100%;}
+.f-info-links a{
+    text-decoration: none;
+    color: #222222;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+
+/* ----------------*/
+/*    C A R D S    */ 
+/*-----------------*/
+
+.pin-card{
+    border: none !important;
+    margin-bottom: 0.6rem;
+}
+.card-img-top{
+    border-radius: 0.7rem !important;
+    width: 100% !important;
+    object-fit: cover !important;
+}   
+.card-body{
+    padding: 0 !important;
+}
+.card-text{
+    font-weight: 500 !important;
+}
+.container .card{
+    flex:1;
+    display: grid;
+    place-items: center;
+}
+.card-img-overlay{opacity: 0;}
+.card-img-overlay:hover{opacity: 0.2;background: #fff;}
+
+.show-img{
+    height: 45vh;
+    width: 90vh !important;
+}
+.d-flex{
+    gap:1rem
+}
+.one{
+    height: 2.3rem;
+}
+.two{
+    width: 6rem;
+}
+
+
+/* Show page */
+.detail{
+    width: 20rem;
+}
+.details-box {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5; /* Creamy or gray shade */
+    padding: 20px;
+  }
+
+  .details-box img {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  } 

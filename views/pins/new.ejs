@@ -1,49 +1,45 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pixus</title>
-  </head>
-  <body>
-    <h3>Create Pin</h3>
-    <form action="/pins" method="POST">
-      <label for="title">Title</label>
-      <input
-        type="text"
-        name="pins[title]"
-        placeholder="Add a title"
-        required
-      /><br />
-      <label for="description">Description</label>
-      <textarea
-        required
-        name="pins[description]"
-        placeholder="Add a detailed description"
-        cols="30"
-        rows="10"
-      ></textarea
-      ><br />
-      <label for="image">Image</label>
-      <input type="text" name="pins[image]" placeholder="Image URL" /><br />
-      <label for="link">Link</label>
-      <input type="text" name="pins[link]" placeholder="Add a link" /><br />
-      <label for="board">Board</label>
-      <input
-        type="text"
-        required
-        name="pins[board]"
-        placeholder="Add board"
-      /><br />
-      <label for="taggedTopics">taggedTopics</label>
-      <input
-        type="text"
-        required
-        name="pins[taggedTopics]"
-        placeholder="Add related topics"
-      /><br />
+<%layout("/layouts/boilerplate")%>
 
-      <button>Publish</button>
-    </form>
+  <body>
+    <div class="container mt-5 mb-5">
+      <h3>Create Pin</h3>
+      <form action="/pins" method="POST" >
+        <div class="form-group mb-3">
+          <label class="form-label" for="title">Title</label>
+          <input type="text" class="form-control" name="pins[title]" placeholder="Add a title" required>
+        </div>
+        <div class="valid-feedback">Title looks good</div>
+  
+        <div class="form-group mb-3">
+          <label class="form-label" for="description">Description</label>
+          <textarea class="form-control" required name="pins[description]" placeholder="Add a detailed description" cols="30" rows="5"></textarea>
+        </div>
+  
+        <div class="form-group mb-3">
+          <label class="form-label" for="image">Image</label>
+          <input type="text" class="form-control" name="pins[image]" placeholder="Image URL">
+        </div>
+  
+        <div class="form-group mb-3">
+          <label class="form-label" for="link">Link</label>
+          <input type="text" class="form-control" name="pins[link]" placeholder="Add a link">
+        </div>
+  
+        <div class="row">
+          <div class="col-md-6 form-group mb-3">
+            <label class="form-label" for="board">Board</label>
+            <input type="text" class="form-control" required name="pins[board]" placeholder="Add board">
+          </div>
+  
+          <div class="col-md-6 form-group mb-3">
+            <label class="form-label" for="taggedTopics">Tagged Topics</label>
+            <input type="text" class="form-control" required name="pins[taggedTopics]" placeholder="Add related topics">
+          </div>
+        </div>
+        
+  
+        <button type="submit" class="btn btn-primary mt-3 mb-5">Publish</button>
+      </form>
+    </div>
   </body>
 </html>

@@ -1,19 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixus</title>
-</head>
+<%layout("/layouts/boilerplate")%>
 <body>
     <h3>All Pins</h3>
-    <form action="/pins/new" method="GET">
-        <button>Create +</button>
-    </form>
-    <ul>
-        <%for(let pin of allPins){%>
-            <li><a href="pins/<%=pin._id%>"><%=pin.title%></a></li>
+    <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mt-3 mb-5">
+        <% for(let pin of allPins){%>
+            <a href="/pins/<%=pin._id%>" class="text-decoration-none">
+                <div class="card col pin-card">
+                    <img src="<%=pin.image.url%>" class="card-img-top" alt="pin" style="width: 100%; height: 20rem; object-fit: cover;">
+                    <div class="card-img-overlay"></div>
+                </div>
+            </a>
         <%}%>
-    </ul>
+    </div>
 </body>
 </html>
