@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixus</title>
+</head>
+<body>
+    <h3>All Pins</h3>
+    <form action="/pins/new" method="GET">
+        <button>Create +</button>
+    </form>
+    <ul>
+        <%for(let pin of allPins){%>
+            <li><a href="pins/<%=pin._id%>"><%=pin.title%></a></li>
+        <%}%>
+    </ul>
+</body>
+</html>

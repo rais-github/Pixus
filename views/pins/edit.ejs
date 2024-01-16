@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pixus</title>
+  </head>
+  <body>
+    <h3>Create Pin</h3>
+    <form action="/pins/<%=pin._id%>?_method=PUT" method="POST">
+      <label for="title">Title</label>
+      <input
+        type="text"
+        name="pins[title]"
+        value="<%=pin.title  %>"
+        required
+      /><br />
+      <label for="description">Description</label>
+      <textarea
+        required
+        name="pins[description]"
+        cols="30"
+        rows="10"
+      ><%=pin.description  %></textarea
+      ><br />
+      <label for="image">Image</label>
+      <input type="text" name="pins[image]" value="<%=pin.image.url  %>" /><br />
+      <label for="link">Link</label>
+      <input type="text" name="pins[link]" value="<%=pin.link  %>" /><br />
+      <label for="board">Board</label>
+      <input
+        type="text"
+        required
+        name="pins[board]"
+        value="<%=pin.board  %>"
+      /><br />
+      <label for="taggedTopics">taggedTopics</label>
+      <input
+        type="text"
+        required
+        name="pins[taggedTopics]"
+        value="<%=pin.taggedTopics%>"
+      /><br />
+
+      <button>Save</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixus</title>
+</head>
+<body>
+    <h3>Listing Details:</h3>
+    <ul>
+        <li><%=pin.title%></li>
+        <li><%=pin.description%></li>
+        <li><%=pin.link%></li>
+        <li><%=pin.board%></li>
+        <li><%=pin.taggedTopics%></li>
+    </ul>
+    <a href="/pins/<%=pin._id%>/edit">Edit</a>
+    <form method="POST" action="/pins/<%=pin._id%>?_method=DELETE">
+        <button>Delete</button>
+      </form>
+</body>
+</html>
