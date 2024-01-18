@@ -2,7 +2,7 @@ const {pinSchema} = require('../joiSchema');
 const ExpressError = require('../utils/ExpressError')
 
 const validatePin = (req, res, next) => {
-    const { error } = pinSchema.validate(req.body);
+    const { error } = pinSchema.validate(req.body.pin);
     if (error) {
       let errMsg = error.details.map((el) => el.message).join(",");
       throw new ExpressError(400, errMsg);

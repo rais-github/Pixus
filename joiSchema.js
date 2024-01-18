@@ -10,9 +10,17 @@ const pinSchema = Joi.object({
         taggedTopics: Joi.string().required(),
     }).required(),
 });
+const commentSchema = Joi.object({
+    comment: Joi.object({
+        rating: Joi.number().required().min(1).max(5),
+        message: Joi.string().required(),
+    }).required(),
+});
+
 
 
 
 module.exports = {
     pinSchema,
+    commentSchema
 };
