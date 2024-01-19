@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const User = require('./user');
 const commentSchema = mongoose.Schema({
     message: {type:String,},
     rating: {
@@ -11,10 +11,10 @@ const commentSchema = mongoose.Schema({
         type: Date,
         default: Date.now 
     },
-    // author:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:'User'
-    // }
+    author:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User'
+    }
 });
 
 const Comment = mongoose.model("Comment", commentSchema);

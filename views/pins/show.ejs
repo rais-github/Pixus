@@ -13,6 +13,7 @@
             <div class="card-body detail">
               <ul>
                 <li><b><%= pin.title %></b></li>
+                <li><i><%= pin.owner.username %></i></li>
                 <li><%= pin.description %></li>
                 <li><a href="<%= pin.link %>"><%= pin.link %></a></li>
                 <li><%= pin.board %></li>
@@ -25,30 +26,46 @@
                   <textarea class="form-control" name="comment[message]" id="newComment" cols="30" rows="3" required></textarea>
                   <div class="invalid-feedback">Enter your comment</div>
                 </div>
-                <div class="mb-3">
-                  <label for="rating" class="form-label">Rating</label>
-                  <input type="range" min="1" max="5" id="rating" name="comment[rating]" />
-                </div>
+                <div class="mb-3 mt-3">
+                  <label for="rating" class="form-label"><legend>Rating:</legend></label>
+                  <fieldset class="starability-slot">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="comment[rating]" value="1" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="comment[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="comment[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="comment[rating]" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="comment[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="comment[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                  </fieldset>
+                  </div>
                 <button type="submit" class="btn btn-outline-dark mt-2">Post Comment</button>
               </form>
             </div>
           </div>
+          <% if(currentUser && pin.owner._id.equals(currentUser._id)){%>
           <div class="mt-3 text-center">
             <a href="/pins/<%= pin._id %>/edit">Edit</a>
             <form method="POST" action="/pins/<%= pin._id %>?_method=DELETE">
               <button>Delete</button>
             </form>
           </div>
+          <%}%>
         </div>
       </div>
     </div>
     <div class="col-4" >
       <div class="comments-container" style="max-height: 300px; overflow-y: auto;">
         <h3>All Comments</h3>
+        <%if(currentUser){%>
         <div class="col">
           <% for (const comment of pin.comments) { %>
             <div class="card mb-3">
               <div class="card-body">
+                <p class="card-text"><%= comment.author.username %></p>
                 <p class="card-text"><%= comment.message %></p>
                 <p class="card-text">Rated: <%= comment.rating %></p>
               </div>
@@ -58,6 +75,7 @@
             </div>
           <% } %>
         </div>
+        <%}%>
       </div>
     </div>
   </div>

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Comment =require('./comment');
+const User = require('./user');
 const defaultImg =
   "https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTh8fHRyYXZlbHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60";
 
@@ -38,7 +39,11 @@ const listingSchema = new mongoose.Schema({
   comments:[{
     type:mongoose.Schema.Types.ObjectId,
     ref:'Comment'
-  }]
+  }],
+  owner:{
+    type:mongoose.Schema.Types.ObjectId,
+    ref:"User"
+},
 });
 
 

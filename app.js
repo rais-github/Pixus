@@ -6,10 +6,16 @@ const mongoose = require("mongoose");
 const path = require("path");
 const eMate = require("ejs-mate");
 const methodOverride = require("method-override");
-const asyncHandler = require("express-async-handler");
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user.js');
+const session = require('express-session');
+const flash= require('connect-flash');
+
 
 const comments = require("./routes/comments");
 const pins = require("./routes/pin");
+const userRouter=require('./routes/user.js');
 const ExpressError = require("./utils/ExpressError");
 
 const app = express();
@@ -20,9 +26,28 @@ app.engine("ejs", eMate);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
+const sessionOption = {
+  secret:process.env.SESSION_KEY,
+  resave:false,
+  saveUninitialized:true,
+  cookie:{
+    expires:Date.now() + 7*24*60*60*1000, 
+    maxAge:7 * 24 * 60 * 60 * 1000, 
+    httpOnly:true
+  }
+}
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
+app.use(session(sessionOption));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 main()
   .then((res) => {
@@ -37,10 +62,18 @@ async function main() {
 app.get("/", (req, res) => {
   res.send("Root Route");
 });
+app.use((req,res,next)=>{
+  res.locals.success=req.flash('success');
+  res.locals.error=req.flash('error');
+  res.locals.currentUser=req.user;
+  next();
+})
 
 app.use("/pins", pins);
 
 app.use("/pins/:id/comments", comments);
+
+app.use('/',userRouter);
 
 app.all("*", (req, res, next) => {
   next(new ExpressError(404, "Page not found!"));
