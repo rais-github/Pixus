@@ -33,12 +33,15 @@ To run this project locally, follow these steps:
    ```bash
    git clone https://github.com/rais-github/Pixus.git
 2. Install dependencies:
+    ```bash
     npm install
 3. Set up your MongoDB Atlas account and Cloudinary credentials.
 4. Create a .env file in the root directory with the following content:
+    ```bash
     MONGO_URI=your_mongo_db_uri
     CLOUDINARY_API_KEY=your_cloudinary_api_key
     CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 5. Start Devlopment server :
+    ```bash
     npm start
 
