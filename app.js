@@ -76,7 +76,7 @@ async function main() {
 }
 
 app.get("/", (req, res) => {
-  res.send("Root Route");
+  res.redirect("/pins");
 });
 app.use((req,res,next)=>{
   res.locals.success=req.flash('success');
