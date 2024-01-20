@@ -48,16 +48,35 @@ const renderEditPinForm = async (req, res) => {
 
 const updatePin = async (req, res) => {
   const { id } = req.params;
-  const pin = await listingSchema.findByIdAndUpdate(id, { ...req.body.pins });
-  if (typeof req.file !== "undefined") {
-    const { filename, path } = req.file;
-    pin.image = { filename, url: path };
+  try {
+    const pin = await listingSchema.findById(id);
+
+    if (!pin) {
+      req.flash("error", "Pin not found");
+      return res.redirect("/pins");
+    }
+
+    // Update pin data
+    pin.set({ ...req.body.pins });
+
+    // Check if a new image is uploaded
+    if (req.file) {
+      const { filename, path } = req.file;
+      pin.image = { filename, url: path };
+    }
+
+    // Save the updated pin
     await pin.save();
+
+    req.flash("success", "Listing Updated");
+    res.redirect(`/pins/${id}`);
+  } catch (error) {
+    console.error("Error updating pin:", error);
+    req.flash("error", "Error updating pin");
+    res.redirect(`/pins/${id}`);
   }
-  await pin.save();
-  req.flash("success", "Listing Updated");
-  res.redirect(`/pins/${id}`);
 };
+
 
 const deletePin = async (req, res) => {
   const { id } = req.params;

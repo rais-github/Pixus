@@ -4,50 +4,114 @@
     <div class="container mt-5 mb-5">
       <h3>Create Pin</h3>
       <form action="/pins" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
-        <div class="form-group mb-3">
-          <label class="form-label" for="title">Title</label>
-          <input type="text" class="form-control" name="pins[title]" placeholder="Add a title" required>
-          <div class="valid-feedback">Title looks good</div>
-        </div>
-  
-        <div class="form-group mb-3">
-          <label class="form-label" for="description">Description</label>
-          <textarea class="form-control" required name="pins[description]" placeholder="Add a detailed description" cols="30" rows="5"></textarea>
-          <div class="invalid-feedback">Provide some discription</div>
-        </div>
-  
-        <!-- <div class="form-group mb-3">
-          <label class="form-label" for="image">Image</label>
-          <input type="text" class="form-control" name="pins[image]" placeholder="Image URL">
-        </div> -->
-
-        <div class="form-group mb-3">
-          <label class="form-label" for="image">Upload Image</label>
-          <input type="file" class="form-control" name="pins[image]" placeholder="Upload Your Pin">
-        </div>
-  
-        <div class="form-group mb-3">
-          <label class="form-label" for="link">Link</label>
-          <input type="text" class="form-control" name="pins[link]" placeholder="Add a link">
-        </div>
-  
+        
         <div class="row">
-          <div class="col-md-6 form-group mb-3">
-            <label class="form-label" for="board">Board</label>
-            <input type="text" class="form-control" required name="pins[board]" placeholder="Add board">
-            <div class="invalid-feedback">Add to your board</div>
+          <!-- Image Upload Section -->
+          <div class="col-md-6 mb-3">
+            <div class="form-group image-upload-container" style="height: 200px;">
+              <label class="form-label" for="image">Upload Image</label>
+              <div class="dark-overlay">
+                <input type="file" class="form-control" name="pins[image]" id="imageInput" accept="image/*" style="height: 100%; opacity: 0;">
+              </div>
+              <img id="selectedImage" class="img-fluid mt-2" style="display: none;">
+            </div>
           </div>
-  
-          <div class="col-md-6 form-group mb-3">
-            <label class="form-label" for="taggedTopics">Tagged Topics</label>
-            <input type="text" class="form-control" required name="pins[taggedTopics]" placeholder="Add related topics">
-            <div class="invalid-feedback">Add Topics for more views</div>
+          
+          <!-- Other Fields Section -->
+          <div class="col-md-6">
+            <div class="form-group mb-3">
+              <label class="form-label" for="title">Title</label>
+              <input type="text" class="form-control" name="pins[title]" placeholder="Add a title" required disabled>
+              <div class="valid-feedback">Title looks good</div>
+            </div>
+    
+            <div class="form-group mb-3">
+              <label class="form-label" for="description">Description</label>
+              <textarea class="form-control" required name="pins[description]" placeholder="Add a detailed description" cols="30" rows="5" disabled></textarea>
+              <div class="invalid-feedback">Provide some description</div>
+            </div>
+    
+            <div class="form-group mb-3">
+              <label class="form-label" for="link">Link</label>
+              <input type="text" class="form-control" name="pins[link]" placeholder="Add a link" disabled>
+            </div>
+    
+            <div class="form-group mb-3">
+              <label class="form-label" for="board">Board</label>
+              <input type="text" class="form-control" required name="pins[board]" placeholder="Add board" disabled>
+              <div class="invalid-feedback">Add to your board</div>
+            </div>
+    
+            <div class="form-group mb-3">
+              <label class="form-label" for="taggedTopics">Tagged Topics</label>
+              <input type="text" class="form-control" required name="pins[taggedTopics]" placeholder="Add related topics" disabled>
+              <div class="invalid-feedback">Add Topics for more views</div>
+            </div>
           </div>
         </div>
         
-  
-        <button type="submit" class="btn btn-primary mt-3 mb-5">Publish</button>
+        <button type="submit" class="btn btn-primary mt-3 mb-5" id="publishButton" disabled>Publish</button>
       </form>
     </div>
+
+    <style>
+      .image-upload-container {
+        position: relative;
+      }
+
+      .dark-overlay {
+        background: rgba(0, 0, 0, 0.5);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 75%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #selectedImage {
+        max-height: 150px;
+        width: 100rem;
+        object-fit: contain;
+      }
+    </style>
+
+    <script>
+      // Enable fields and button when an image is selected
+      document.getElementById('imageInput').addEventListener('change', function () {
+        var imageInput = this;
+        var publishButton = document.getElementById('publishButton');
+        var otherFields = document.querySelectorAll('[name^="pins["]:not([name^="pins[image]"])');
+        var selectedImage = document.getElementById('selectedImage');
+
+        if (imageInput.files.length > 0) {
+          // Image selected, enable other fields and button
+          publishButton.disabled = false;
+          otherFields.forEach(function (field) {
+            field.disabled = false;
+          });
+
+          // Display selected image
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            selectedImage.src = e.target.result;
+            selectedImage.style.display = 'block';
+          };
+          reader.readAsDataURL(imageInput.files[0]);
+        } else {
+          // No image selected, disable other fields and button
+          publishButton.disabled = true;
+          otherFields.forEach(function (field) {
+            field.disabled = true;
+          });
+
+          // Hide selected image
+          selectedImage.style.display = 'none';
+        }
+      });
+    </script>
   </body>
 </html>

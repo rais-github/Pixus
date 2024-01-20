@@ -121,3 +121,32 @@ footer{
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   } 
+
+
+  /* Button */
+  .btn.btn-dark{
+    margin-top: -2rem;
+  }
+  
+  /* Image  */
+
+  /* Additional CSS for image upload section */
+.image-upload-section {
+    position: relative;
+  }
+  
+  .overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    text-align: center;
+    z-index: 2;
+  }
+  
+  .overlay-text p {
+    font-size: 18px;
+    margin: 0;
+  }
+  
