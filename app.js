@@ -10,6 +10,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash= require('connect-flash');
 
 
@@ -19,8 +20,23 @@ const userRouter=require('./routes/user.js');
 const ExpressError = require("./utils/ExpressError");
 
 const app = express();
-const MONGO_URL = "mongodb://127.0.0.1:27017/pixus";
+// const MONGO_URL = "mongodb://127.0.0.1:27017/pixus";
 const PORT = process.env.PORT || 3000;
+
+const dbURL= process.env.ATLAS_URL;
+
+const store =MongoStore.create({
+  mongoUrl:dbURL,
+  crypto:{
+    secret:"f-17vv",
+  },
+  touchAfter:24*3600
+});
+
+store.on("error",function(){
+  console.log("ERROR_IN_MONGO_SESSION_STORE");
+})
+
 
 app.engine("ejs", eMate);
 app.set("views", path.join(__dirname, "views"));
@@ -56,7 +72,7 @@ main()
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbURL);
 }
 
 app.get("/", (req, res) => {

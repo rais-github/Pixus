@@ -12,7 +12,9 @@ const renderNewPinForm = (req, res) => {
 
 const createNewPin = async (req, res) => {
   const newPin = new listingSchema(req.body.pins);
+  const { filename, path } = req.file;
   newPin.owner = req.user._id;
+  newPin.image = { filename, url: path };
   await newPin.save();
   req.flash("success", "New pin created");
   res.redirect("/pins");
@@ -39,12 +41,19 @@ const renderEditPinForm = async (req, res) => {
     req.flash("error", "Pin you requested for does not exist");
     res.redirect("/pins");
   }
-  res.render("pins/edit.ejs", { pin });
+  let orgimg = pin.image.url;
+  orgimg = orgimg.replace("/upload", "/upload/w_250");
+  res.render("pins/edit.ejs", { pin, orgimg });
 };
 
 const updatePin = async (req, res) => {
   const { id } = req.params;
   const pin = await listingSchema.findByIdAndUpdate(id, { ...req.body.pins });
+  if (typeof req.file !== "undefined") {
+    const { filename, path } = req.file;
+    pin.image = { filename, url: path };
+    await pin.save();
+  }
   await pin.save();
   req.flash("success", "Listing Updated");
   res.redirect(`/pins/${id}`);

@@ -3,7 +3,7 @@
 <body class="bg-light">
   <div class="container mt-5 mb-5">
     <h3>Edit Pin</h3>
-    <form action="/pins/<%= pin._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+    <form action="/pins/<%= pin._id %>?_method=PUT" method="POST" novalidate class="needs-validation" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="text" class="form-control" name="pins[title]" value="<%= pin.title %>" required>
@@ -15,8 +15,13 @@
       </div>
 
       <div class="mb-3">
-        <label for="image" class="form-label">Image</label>
-        <input required type="text" class="form-control" name="pins[image]" value="<%= pin.image.url %>">
+        <legend>Orginal Image</legend>
+        <img src="<%= orgimg  %>" alt="listing">
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">New Image </label>
+        <input name="pins[image]" type="file" class="form-control" />
       </div>
 
       <div class="mb-3">
